@@ -105,3 +105,6 @@ dist
 
 # package-lock.json
 package-lock.json
+
+# CREO UN GITIGNORE PARA EVITAR SUBIR MI API KEY DEL .ENV
+.env
