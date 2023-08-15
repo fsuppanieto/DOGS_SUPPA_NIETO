@@ -13,9 +13,13 @@ async function getTemperamentsFromAPI() {
       .filter(
         (breed) =>
           breed.hasOwnProperty("temperament") && breed.temperament !== null
-      )
+      )// CUANDO LLEGO, EVALUAR CAMBIAR ESTO:
       .map((breed) => breed.temperament.split(", "))
-      .flat();
+      .flat();// POR ESTO:
+// .reduce((temperaments, breed) => {
+//         const breedTemperaments = breed.temperament.split(", ");
+//         return [...temperaments, ...breedTemperaments];
+//       }, []);
 
     // Eliminar duplicados en el array de temperamentos
     const uniqueTemperaments = [...new Set(temperamentsFromAPI)];
