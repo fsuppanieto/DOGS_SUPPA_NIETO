@@ -9,7 +9,7 @@ import {
 const initialState = {
   allDogs: [],
   dogsByName: [],
-  dogsToRender: [],
+  dogsRender: [],
   dog: {},
   temperaments: [],
 };
@@ -20,7 +20,7 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allDogs: payload,
-        dogsToRender: payload,
+        dogsRender: payload,
       };
     case GET_DOG_BY_ID:
       return {
@@ -41,7 +41,7 @@ const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         dogsByName: payload,
-        dogsToRender: payload,
+        dogsRender: payload,
       };
     default:
       return { ...state };
