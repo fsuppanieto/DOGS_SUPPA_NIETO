@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getTemperaments } from "../redux/actions";
 
 function FormPage() {
   const [name, setName] = useState("");
@@ -10,19 +12,11 @@ function FormPage() {
   const [lifeSpan, setLifeSpan] = useState("");
   const [temperaments, setTemperaments] = useState([]);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    const fetchTemperaments = async () => {
-      try {
-        const response = await axios.get("/temperaments");
-        setTemperaments(response.data);
-      } catch (error) {
-        console.error("Error fetching temperaments:", error);
-      }
-    };
-
-    fetchTemperaments();
-  }, []);
-
+    dispatch(getTemperaments()); // Cargar los temperamentos al montar el componente
+  }, [dispatch]);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,7 +32,7 @@ function FormPage() {
       const response = await axios.post("/dogs", newDog);
       console.log("New dog created:", response.data);
     } catch (error) {
-      console.error("Error creating new dog:", error);
+      console.error("Error al crear new dog:", error);
     }
   };
 

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Card({ id, name, image, temperament, weight }) {
   return (
     <div>
-      <Link to={`/detalle/${id}`}>
+      <Link to={`/detail/${id}`}>
         <img src={image} alt={name} />
         <h2>{name}</h2>
         <p>Temperament: {temperament}</p>

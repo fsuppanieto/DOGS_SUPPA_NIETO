@@ -1,35 +1,43 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { getDogById, cleanDetail } from "../redux/actions";
 
-function DetailPage({ match }) {
-  const [dogDetails, setDogDetails] = useState({});
-  const dogId = match.params.id;
+const Detail = () => {
+  const { detailId } = useParams();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
-    const fetchDogDetails = async () => {
-      try {
-        const response = await axios.get(`/dogs/${dogId}`);
-        setDogDetails(response.data);
-      } catch (error) {
-        console.error("Error en el fetching", error);
-      }
-    };
+    dispatch(cleanDetail()); //Limpiar el componente antes de montarlo
+    dispatch(getDogById(detailId));
+  }, [dispatch, detailId]);
 
-    fetchDogDetails();
-  }, [dogId]);
-
+  const dog = useSelector((state) => state.dog);
+  const handleBack = () => {
+    history.goBack();
+  };
   return (
     <div>
-      <h2>Detalle de la Raza</h2>
-      <p>ID: {dogDetails.id}</p>
-      <img src={dogDetails.image} alt={dogDetails.name} />
-      <p>Nombre: {dogDetails.name}</p>
-      <p>Altura: {dogDetails.height}</p>
-      <p>Peso: {dogDetails.weight}</p>
-      <p>Temperamentos: {dogDetails.temperament}</p>
-      <p>Años de Vida: {dogDetails.life_span}</p>
+      <div>
+        <div>
+          <h1>DETAILS</h1>
+          <h2>BREED: {dog.name}</h2>
+          <h2>HEIGHT: {dog.height}</h2>
+          <h2>WEIGHT: {dog.weight}</h2>
+          <h2>LIFE SPAN: {dog.life_span}</h2>
+          <h2>TEMPERAMENT: {dog.temperament}</h2>
+        </div>
+        <div>
+          <img src={dog.image} alt="" />
+        </div>
+      </div>
+      <div>
+        <button onClick={handleBack}>back</button>
+      </div>
     </div>
   );
-}
+};
 
-export default DetailPage;
+export default Detail;

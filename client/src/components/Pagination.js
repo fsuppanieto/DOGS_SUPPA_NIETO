@@ -1,26 +1,22 @@
 import React from "react";
 
-const Pagination = ({
-  totalItems,
-  itemsPerPage,
+const pagination = ({
   currentPage,
-  onPageChange,
+  totalPages,
+  handlePrevious,
+  handleNext,
 }) => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-
   return (
-    <div className="pagination">
-      {Array.from({ length: totalPages }).map((_, index) => (
-        <button
-          key={index}
-          onClick={() => onPageChange(index + 1)}
-          className={currentPage === index + 1 ? "active" : ""}
-        >
-          {index + 1}
-        </button>
-      ))}
+    <div>
+      <label>Page: {currentPage}</label>
+      <button onClick={handlePrevious} disabled={currentPage === 1}>
+        PREVIOUS
+      </button>
+      <button onClick={handleNext} disabled={currentPage === totalPages}>
+        NEXT
+      </button>
     </div>
   );
 };
 
-export default Pagination;
+export default pagination;

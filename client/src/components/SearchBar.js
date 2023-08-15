@@ -1,28 +1,41 @@
-import React, { useState } from "react";
-import axios from "axios"; // Importa axios u otro cliente HTTP
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { get_dogs_by_name } from "../../redux/actions";
 
-const SearchBar = ({ onSearch }) => {
-  const [query, setQuery] = useState("");
+const SearchBar = () => {
+  const [name, setName] = useState("");
+  const dispatch = useDispatch();
 
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(`/dogs/name?name=${query}`);
-      const filteredDogs = response.data; // Suponiendo que la respuesta contiene los perros filtrados
-      onSearch(filteredDogs);
-    } catch (error) {
-      console.error("Error en el fetching", error);
-    }
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const searchByName = () => {
+    const reLetters = /^[a-zA-Z]{2,18}$/; //entre 2 y 18 caracteres solo letras
+
+    reLetters.test(name) === true
+      ? dispatch(get_dogs_by_name(name))
+      : alert("Se deben ingresar solo letras. entre 2 y 18 caracteres");
   };
 
   return (
-    <div>
+    <div className={style.container}>
       <input
-        type="text"
-        placeholder="Buscar razas de perros..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button onClick={handleSearch}>Buscar</button>
+        className={style.input}
+        placeholder="Search by name"
+        maxLength={20}
+        value={name}
+        onChange={handleChange}
+      ></input>
+      <button
+        className={style.button}
+        onClick={() => {
+          searchByName(name);
+          setName("");
+        }}
+      >
+        SEARCH
+      </button>
     </div>
   );
 };
