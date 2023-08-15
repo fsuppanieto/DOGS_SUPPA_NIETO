@@ -27,6 +27,15 @@ function FormPage() {
       life_span: lifeSpan,
       temperaments,
     };
+    //POSIBLE ELIMINACION DE CACHE:
+
+// const config = {
+//   headers: {
+//     "Cache-Control": "no-cache, no-store, must-revalidate, private",
+//     "Pragma": "no-cache",
+//     "Expires": "0"
+//   }
+// };
 
     try {
       const response = await axios.post("/dogs", newDog);
