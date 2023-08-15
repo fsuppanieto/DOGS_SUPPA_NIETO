@@ -69,8 +69,8 @@ async function getDogsById(id) {
 async function createDog(name, temperament) {
   try {
     const newDog = await db.Dog.create({ nombre: name });
-
-    const temperamentRecords = await db.Temperament.findAll({
+//CUANDO LLEGO VOY A PROBAR DE ELIMINAR EL DB.
+    const temperamentRecords = await db.Temperament.findAll({ // ACA TAMBIEN, VOY A TRABAJAR SIN EL DB.
       where: {
         name: temperament,
       },
