@@ -9,6 +9,12 @@ const server = express();
 
 server.name = "API";
 
+// CONFIGURACION PARA DESACTIVAR CACHE
+// server.use((req, res, next) => {
+//   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
+//   next();
+// });
+
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
