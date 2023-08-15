@@ -4,22 +4,22 @@ import Card from "./Card";
 import Pagination from "./Pagination"; // Importa el componente de paginación
 
 const Cards = () => {
-  const dogsPerPage = useSelector((state) => state.dogsPerPage);
+  const dogsRender = useSelector((state) => state.dogsRender);
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 8;
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [dogsPerPage]);
+  }, [dogsRender]);
 
-  if (!dogsPerPage) {
+  if (!dogsRender) {
     return null;
   }
 
-  const totalPages = Math.ceil(dogsPerPage.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(dogsRender.length / ITEMS_PER_PAGE);
   const indexLastItem = currentPage * ITEMS_PER_PAGE;
   const indexFirstItem = indexLastItem - ITEMS_PER_PAGE;
-  const currentItems = dogsPerPage.slice(indexFirstItem, indexLastItem);
+  const currentItems = dogsRender.slice(indexFirstItem, indexLastItem);
 
   return (
     <div>
